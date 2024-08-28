@@ -18,15 +18,15 @@ public class User {
     private long id;
 
     @Column(unique = true, nullable = false)
-    private String username;
+    private String userName;
 
     @Column(nullable = false)
     private String password;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles_mapping",
+    @JoinTable(name = "user_role_mapping",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Role> role;
+    private Set<Role> roles;
 
 }
