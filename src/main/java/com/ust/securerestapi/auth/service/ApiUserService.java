@@ -21,11 +21,6 @@ public class ApiUserService implements UserDetailsService {
         var dbUser = userRepository.findByUserName(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        // Mapping the user roles to a Set of GrantedAuthority
-//        Set<GrantedAuthority> authorities = dbUser.getRoles().stream()
-//                .map(role -> (GrantedAuthority) role::getName)
-//                .collect(Collectors.toSet());
-
         return User
                 .builder()
                 .username(dbUser.getUserName())
