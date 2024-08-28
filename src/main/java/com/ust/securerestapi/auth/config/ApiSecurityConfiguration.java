@@ -1,4 +1,4 @@
-package com.ust.securerestapi.config;
+package com.ust.securerestapi.auth.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,8 +29,7 @@ public class ApiSecurityConfiguration {
         http
             .csrf(token ->token.disable())
             .authorizeHttpRequests(auth -> {
-                auth.requestMatchers("api/v1/**").permitAll();
-                auth.anyRequest().authenticated();
+                auth.requestMatchers("/**").permitAll();
             })
             .httpBasic(Customizer.withDefaults());
         return http.build();

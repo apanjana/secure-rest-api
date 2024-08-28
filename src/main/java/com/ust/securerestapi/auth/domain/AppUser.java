@@ -11,7 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "user_info")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class User {
+public class AppUser {
 
     @Id
     @GeneratedValue
@@ -27,6 +27,6 @@ public class User {
     @JoinTable(name = "user_role_mapping",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<Role> roles;
+    private Set<AppUserRole> roles;
 
 }

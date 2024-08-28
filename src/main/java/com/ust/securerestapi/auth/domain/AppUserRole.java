@@ -1,10 +1,7 @@
 package com.ust.securerestapi.auth.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "user_roles")
@@ -12,7 +9,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role {
+@ToString
+public class AppUserRole {
 
     @Id
     @GeneratedValue
@@ -20,4 +18,9 @@ public class Role {
 
     @Column(nullable = false)
     private String name;
+
+    public AppUserRole(String name) {
+        this.name = name;
+    }
+
 }
