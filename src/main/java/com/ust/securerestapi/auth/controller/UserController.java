@@ -31,7 +31,9 @@ public class UserController {
         var user = new AppUser();
         user.setUserName(request.userName());
         user.setPassword(passwordEncoder.encode(request.password()));
-        Set<AppUserRole> roles = Arrays.stream(request.roles()).map(s -> new AppUserRole(s)).collect(Collectors.toSet());
+        Set<AppUserRole> roles = Arrays.stream(request.roles())
+                                .map(s -> new AppUserRole("ROLE_"+s))
+                                .collect(Collectors.toSet());
         log.debug("Roles: {}", roles);
         user.setRoles(roles);
         var response = userRepository.save(user);

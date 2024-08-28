@@ -9,8 +9,8 @@ public class ApiController {
 
     @GetMapping("/hello")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return String.format("Hello, %s!", name);
+    public String hello() {
+        return "Hello, World! This is a User.";
     }
 
     @PostMapping("/secure")
