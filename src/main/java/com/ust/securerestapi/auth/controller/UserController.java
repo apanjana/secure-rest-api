@@ -13,6 +13,7 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,7 +65,9 @@ public class UserController {
         Authentication authResult = authenticationManager.authenticate(authRequest);
         log.debug("Auth result: {}", authResult);
         if (authResult.isAuthenticated()) {
-            var user = apiUserService.loadUserByUsername(request.userName());
+            UserDetails user = apiUserService.loadUserByUsername(request.userName());
+            log.info("User: {}", request.userName());
+            log.info("User: {}", user.getUsername());
             response.put("token", jwtService.generateToken(user));
             response.put("authenticated", true);
         }

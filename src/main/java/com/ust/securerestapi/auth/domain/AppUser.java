@@ -5,13 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "user_info")
 @Getter @Setter @AllArgsConstructor @NoArgsConstructor
-public class AppUser {
+public class AppUser implements UserDetails {
 
     @Id
     @GeneratedValue
@@ -29,4 +33,13 @@ public class AppUser {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
     private Set<AppUserRole> roles;
 
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles.stream().map(role -> (GrantedAuthority) role::getName).toList();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.userName;
+    }
 }

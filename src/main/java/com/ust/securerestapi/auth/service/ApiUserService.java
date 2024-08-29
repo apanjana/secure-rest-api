@@ -28,7 +28,7 @@ public class ApiUserService implements UserDetailsService {
 
         return User
                 .builder()
-                .username(dbUser.getUserName())
+                .username(dbUser.getUsername())
                 .password(dbUser.getPassword())
                 .authorities(dbUser.getRoles().stream().map(role -> role.getName()).toArray(String[]::new))
                 .build();
