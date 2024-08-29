@@ -24,19 +24,18 @@ public class JwtService {
     private final long EXPIRATION_TIME = TimeUnit.MINUTES.toMillis(30); // 30 minutes
 
     public String generateToken(UserDetails userDetails){
-        log.info("gen token username", userDetails.getUsername());
+        log.info("gen token username {}", userDetails.getUsername());
         Map<String, String> claims = new HashMap<>();
         claims.put("iss", "SecureAPI");
         claims.put("aud", "Authorized Users");
         claims.put("roles", userDetails.getAuthorities().toString());
-        String token =  Jwts.builder()
-                .setSubject(userDetails.getUsername())
-                .setClaims(claims)
-                .setIssuedAt(Date.from(Instant.now()))
-                .setExpiration(Date.from(Instant.now().plusMillis(EXPIRATION_TIME)))
+        return Jwts.builder()
+                .claims(claims)
+                .subject(userDetails.getUsername())
+                .issuedAt(Date.from(Instant.now()))
+                .expiration(Date.from(Instant.now().plusMillis(EXPIRATION_TIME)))
                 .signWith(generateKey())
                 .compact();
-        return token;
     }
 
     private SecretKey generateKey() {

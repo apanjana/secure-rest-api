@@ -7,13 +7,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/v1")
 public class ApiController {
 
-    @GetMapping("/hello")
+    @GetMapping("/user")
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     public String hello() {
         return "Hello, World! This is a User.";
     }
 
-    @PostMapping("/secure")
+    @PostMapping("/admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String secure() {
         return "This is a secure API";

@@ -38,11 +38,11 @@ public class SecurityConfiguration {
         http
             .csrf(AbstractHttpConfigurer::disable)
             .authorizeHttpRequests(auth -> {
-                auth.requestMatchers("/api/users/**").permitAll();
+                auth.requestMatchers("/api/users/**", "/api/db**").permitAll();
                 auth.anyRequest().authenticated();
             })
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-            .httpBasic(Customizer.withDefaults());
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+//            .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 
